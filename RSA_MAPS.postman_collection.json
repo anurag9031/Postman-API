@@ -1,0 +1,226 @@
+{
+	"info": {
+		"_postman_id": "cffce9f5-350f-477b-9379-2cace6abe064",
+		"name": "RSA_MAPS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"OK\");\r",
+							"});\r",
+							"\r",
+							"bodyData=JSON.parse(responseBody)\r",
+							"id=bodyData.place_id\r",
+							"console.log(id)\r",
+							"pm.environment.set(\"place_id\", id);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"location\": {\r\n    \"lat\": -38.383494,\r\n    \"lng\": 33.427362\r\n  },\r\n  \"accuracy\": 50,\r\n  \"name\": \"Shubham Raj\",\r\n  \"phone_number\": \"(+91) 7204764000\",\r\n  \"address\": \"108, Tilkamanjhi, Colony\",\r\n  \"types\": [\r\n    \"Car park\",\r\n    \"shop\"\r\n  ],\r\n  \"website\": \"http://google.com\",\r\n  \"language\": \"English-IN\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}add/json?key=qaclick123",
+					"host": [
+						"{{url}}add"
+					],
+					"path": [
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "qaclick123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your Accuracy Value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.accuracy).to.eql('50');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}get/json?key=qaclick123&place_id={{place_id}}",
+					"host": [
+						"{{url}}get"
+					],
+					"path": [
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "qaclick123"
+						},
+						{
+							"key": "place_id",
+							"value": "{{place_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {\r",
+							"    console.log(response.json());\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"place_id\":\"{{place_id}}\",\r\n\"address\":\"#123 BlockRoad, USA\",\r\n\"key\":\"qaclick123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}update/json?key=qaclick123",
+					"host": [
+						"{{url}}update"
+					],
+					"path": [
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "qaclick123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"place_id\":\"{{place_id}}\"\r\n}\r\n \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}delete/json?key=qaclick123",
+					"host": [
+						"{{url}}delete"
+					],
+					"path": [
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "qaclick123"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
